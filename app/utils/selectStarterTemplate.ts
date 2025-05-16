@@ -113,11 +113,13 @@ export const selectStarterTemplate = async (options: { message: string; model: s
 const getGitHubRepoContent = async (repoName: string): Promise<{ name: string; path: string; content: string }[]> => {
   try {
     // Instead of directly fetching from GitHub, use our own API endpoint as a proxy
-    const response = await fetch(`/api/github-template?repo=${encodeURIComponent(repoName)}`);
+    // const response = await fetch(`/api/github-template?repo=${encodeURIComponent(repoName)}`);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+
+    const response = await fetch(`https://api.hobbo.ai/contents?githubRepo=${repoName}`)
 
     // Our API will return the files in the format we need
     const files = (await response.json()) as any;
